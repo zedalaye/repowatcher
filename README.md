@@ -26,21 +26,21 @@ Just clone this repository, give the depot.rb the executable rights and... run i
 
 You will get an XML file looking like :
 
-`<?xml version="1.0" encoding="UTF-8"?>
-<projects root="/home/pierre/Source">
-  <project scm="Subversion">
-    <url>http://firebird.svn.sourceforge.net/svnroot/firebird/firebird/trunk</url>
-    <local>Firebird/fb</local>
-  </project>
-  <project scm="Subversion">
-    <url>http://firebird.svn.sourceforge.net/svnroot/firebird/firebird/branches/B2_5_Release</url>
-    <local>Firebird/fb25</local>
-  </project>
-  <project scm="Subversion">
-    <url>http://flamerobin.svn.sourceforge.net/svnroot/flamerobin/trunk/flamerobin</url>
-    <local>Firebird/flamerobin</local>
-  </project>
-</projects`
+    <?xml version="1.0" encoding="UTF-8"?>
+    <projects root="/home/pierre/Source">
+      <project scm="Subversion">
+        <url>http://firebird.svn.sourceforge.net/svnroot/firebird/firebird/trunk</url>
+        <local>Firebird/fb</local>
+      </project>
+      <project scm="Subversion">
+        <url>http://firebird.svn.sourceforge.net/svnroot/firebird/firebird/branches/B2_5_Release</url>
+        <local>Firebird/fb25</local>
+      </project>
+      <project scm="Subversion">
+        <url>http://flamerobin.svn.sourceforge.net/svnroot/flamerobin/trunk/flamerobin</url>
+        <local>Firebird/flamerobin</local>
+      </project>
+    </projects>
 
 Plans
 -----
