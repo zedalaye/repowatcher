@@ -42,6 +42,21 @@ You will get an XML file looking like :
       </project>
     </projects>
 
+Options
+-------
+
+Now, depots script supports command line options. Try -h to see supported options.
+
+Use `-d PATH` to tell the script where to start search for repositories. `-o FILE` names 
+the output file, `-v` means it has to be verbose and `-s key` which key to use to sort
+the repositories before dumping them to the output file.
+
+Default search path is '.', the current directory, the default filename is 'projects.xml',
+the script is not verbose by default and sorts the repositories by local directory name.
+
+Available sort keys : *base* [default] is the local directory name, *name* is the kind of repository
+and *url* is the main repository url.
+
 Plans
 -----
 
