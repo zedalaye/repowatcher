@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+START=$1
+
+RECURSIONS=3
+r_count=0
+
+SVN_CMD="svn update"
+CVS_CMD="cvs update"  
+GIT_CMD="git pull"
+HG_CMD="hg pull && hg update"
+GGL_REPO_CMD="../repo sync"
+GGL_GCLIENT_CMD="./depot_tools/gclient sync"
+
+function run_update {
+ 
+  pushd "$1" > /dev/null
+
+  if [ -d ".repo" ]; then
+    echo GGL : Running GGL Repo Sync for $1 in `pwd`
+    ${GGL_REPO_CMD}
+  else 
+    if [ -e ".gclient" -a -d "depot_tools" ]; then
+      pushd "depot_tools" > /dev/null
+      echo GGL : Running GGL GClient Sync for $1 in `pwd`
+      ${GGL_CLIENT_CMD}
+      popd > /dev/null   
+    else  
+      if [ -d ".svn" ]; then
+        echo SVN : Running SVN Update for $1 in `pwd`
+        ${SVN_CMD}
+      else 
+        if [ -d ".git" ]; then    
+          echo GIT : Running GIT Pull for $1 in `pwd`
+          ${GIT_CMD}
+        else
+          if [ -d ".hg" ]; then
+            echo HG  : Running HG Pull \&\& HG Update for $1 in `pwd`
+            ${HG_CMD}
+          else
+            if [ -d "CVS" ]; then
+              echo CVS : Running CVS Update for $1 in `pwd`
+              ${CVS_CMD}
+            else
+              visit "$1"
+            fi
+          fi
+        fi
+      fi
+    fi
+  fi
+
+  popd > /dev/null
+  
+}
+
+function visit {
+
+  ((r_count++))
+  if [ $r_count -le $RECURSIONS ]; then
+    for I in *; do
+      if [ -d "${I}" ]; then
+        run_update "${I}"
+      fi
+    done
+  fi
+  ((r_count--))
+}
+
+if [ -d $START ]; then
+ pushd $START > /dev/null
+ visit .
+ popd > /dev/null
+else
+  echo Usage $0 [directory]
+fi
+
+

@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+if [ $# -ne 1 ]
+then
+  echo "Please specify SF-Update file !"
+  exit 1
+fi
+
+if [ -e "$1" ]
+then
+  source $1
+else
+  echo "SF-Update file $1 not found."
+  exit 1
+fi
+
+if [ -d "$LOCAL_DIR" ]
+then
+  echo "** Updating ${PROJECT} sources from CVS..."
+  echo ""
+  cd ${LOCAL_DIR}
+  cvs -z9 update
+else
+  echo "** Checking-out ${PROJECT} sources from CVS..."
+  echo ""
+
+  if [ ! -z "$CVS_TAG" ] 
+  then
+    TAG="-r ${CVS_TAG}"
+  else
+    TAG=""
+  fi
+
+  cvs -z9 -d :pserver:anonymous@${SF_PROJECT}.cvs.sourceforge.net:/cvsroot/${SF_PROJECT} co -d ${LOCAL_DIR} ${TAG} ${CVS_MODULE}
+
+  if [ -d "$LOCAL_DIR" ]; then
+    echo "** ${PROJECT} sources have been checked-out !"
+  else
+    echo "** ${PROJECT} sources has not been checked-out :-("
+    exit 1
+  fi
+fi

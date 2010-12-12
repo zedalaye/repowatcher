@@ -1,0 +1,6 @@
+# Sample Project CVS-HEAD
+
+PROJECT="Project Name"
+LOCAL_DIR=path
+SF_PROJECT=sourceforge-project-name
+CVS_MODULE=cvs-module-name
